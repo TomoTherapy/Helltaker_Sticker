@@ -1,2 +1,2 @@
 # Helltaker_Sticker
-dancing on screen Helltaker sticker
+dancing on-screen Helltaker sticker
