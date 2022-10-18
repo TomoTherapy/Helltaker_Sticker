@@ -1,0 +1,20 @@
+﻿<Window x:Class="Helltaker_Sticker.CreditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Helltaker_Sticker"
+        mc:Ignorable="d"
+        Title="Credit" Height="263.478" Width="293.913" ResizeMode="NoResize">
+    <Grid Background="White">
+        <StackPanel Margin="69,10,63,10">
+            <TextBlock x:Name="textBox" Height="23" TextWrapping="Wrap" Text="CREDIT" TextAlignment="Center" FontSize="14" FontFamily="Segoe UI"/>
+            <TextBlock x:Name="textBox1" Height="23" TextWrapping="Wrap" Text="" FontFamily="Segoe UI"/>
+            <TextBlock x:Name="textBox2" Height="23" TextWrapping="Wrap" Text="Program : TomoTherapy" FontFamily="Segoe UI"/>
+            <TextBlock x:Name="textBox3" Height="23" TextWrapping="Wrap" Text="Art : vanripper" FontFamily="Segoe UI"/>
+            <TextBlock x:Name="textBox4" Height="23" TextWrapping="Wrap" Text="Music : Mittsies" FontFamily="Segoe UI"/>
+            <TextBlock x:Name="textBox5" Height="23" TextWrapping="Wrap" Text="Developer email :" FontFamily="Segoe UI"/>
+            <TextBlock x:Name="textBox6" Height="23" TextWrapping="Wrap" Text="wnsrlghd@gmail.com" FontFamily="Segoe UI"/>
+        </StackPanel>
+    </Grid>
+</Window>
