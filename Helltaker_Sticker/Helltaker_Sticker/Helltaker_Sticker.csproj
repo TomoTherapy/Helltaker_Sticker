@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />
+    <Resource Include="Hell_dance.gif" />
     <Content Include="Resources\Azazel.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
