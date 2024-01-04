@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Helltaker_Sticker.Xml;
@@ -19,9 +20,25 @@ namespace Helltaker_Sticker
         public bool IsOnClose { get; set; }
         public List<HellGirl> Girls { get; set; }
         public Xml_Parser xml_Parser;
+		private Mutex mutex;
+
         public App()
         {
-            IsOnClose = false;
+			string mutexId = "HelltakerSticker";
+
+			// Try to open the mutex
+			bool createdNew;
+			mutex = new Mutex(false, mutexId, out createdNew);
+
+			if (!createdNew)
+			{
+				// Mutex already exists, which means another instance of the application is running
+				Console.WriteLine("Another instance of the application is already running.");
+				Application.Current.Shutdown();
+				return;
+			}
+
+			IsOnClose = false;
             xml_Parser = new Xml_Parser();
             xml_Parser.LoadSettings();
 
