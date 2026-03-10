@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using Application = System.Windows.Application;
 using WMPLib;
 using Helltaker_Sticker.Xml;
+using System.IO;
+using IWshRuntimeLibrary;
 
 namespace Helltaker_Sticker.ViewModels
 {
@@ -459,7 +461,31 @@ namespace Helltaker_Sticker.ViewModels
                 (Application.Current as App).SaveCurrentState();
             };
 
-            MenuItem CreditItem = new MenuItem()
+			MenuItem RegisterStartupItem = new MenuItem()
+			{
+				Text = m_Language ? "시작프로그램 등록" : "Add to Startup"
+			};
+			RegisterStartupItem.Click += (object o, EventArgs e) =>
+			{
+				string appName = "Helltaker_Sticker auto-start";
+				string startupFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
+				string shortcutLocation = Path.Combine(startupFolderPath, appName + ".lnk");
+				string appPath = System.Reflection.Assembly.GetExecutingAssembly().Location; // Path to the executable
+				string workingDirectory = Path.GetDirectoryName(appPath);
+
+				WshShell shell = new WshShell();
+				IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutLocation);
+
+				shortcut.Description = "Shortcut for Helltaker_Sticker.exe";
+				shortcut.TargetPath = appPath;
+				shortcut.WorkingDirectory = workingDirectory;
+				shortcut.Save();
+
+				string msg = m_Language ? "시작프로그램 등록이 완료되었습니다" : "A Shorcut is registered to Startup";
+				MessageBox.Show(msg);
+			};
+
+			MenuItem CreditItem = new MenuItem()
             {
                 Text = m_Language ? "크레딧" : "Credit"
             };
@@ -491,7 +517,8 @@ namespace Helltaker_Sticker.ViewModels
             Menu.MenuItems.Add(TopMostItem);
             Menu.MenuItems.Add(LangItem);
             Menu.MenuItems.Add(ResetItem);
-            Menu.MenuItems.Add(CreditItem);
+			Menu.MenuItems.Add(RegisterStartupItem);
+			Menu.MenuItems.Add(CreditItem);
             Menu.MenuItems.Add(ExitItem);
             Noti.ContextMenu = Menu;
         }
