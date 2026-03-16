@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36705.20 d17.14
+VisualStudioVersion = 17.14.36705.20
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helltaker_Sticker", "Helltaker_Sticker\Helltaker_Sticker.csproj", "{B1D0B845-E665-43F6-830A-1D18810CDC18}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evernight_Sticker", "Evernight_Sticker\Evernight_Sticker.csproj", "{9CB660C4-C9CA-4586-A50F-2B3F5782943C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{59E67F06-F784-47E4-A6FB-537BDA7AE735}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9CB660C4-C9CA-4586-A50F-2B3F5782943C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CB660C4-C9CA-4586-A50F-2B3F5782943C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CB660C4-C9CA-4586-A50F-2B3F5782943C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59E67F06-F784-47E4-A6FB-537BDA7AE735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59E67F06-F784-47E4-A6FB-537BDA7AE735}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59E67F06-F784-47E4-A6FB-537BDA7AE735}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59E67F06-F784-47E4-A6FB-537BDA7AE735}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

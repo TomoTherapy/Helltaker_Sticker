@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Application = System.Windows.Application;
+using Timer = System.Windows.Forms.Timer;
 
 namespace Evernight_Sticker.ViewModels
 {
@@ -20,6 +21,27 @@ namespace Evernight_Sticker.ViewModels
         private List<DisplayWindow> _displayWindows;
         private JsonParser _jsonParser;
         private App _app;
+
+        private Timer _timer;
+
+        private int _frame;
+        private int _frameInterval;
+
+        public int Frame
+        {
+            get => _frame;
+            set => SetProperty(ref _frame, value);
+        }
+
+        public int FrameInterval
+        {
+            get => _frameInterval;
+            set
+            {
+                SetProperty(ref _frameInterval, value);
+                _timer.Interval = value;
+            }
+        }
 
         public bool Topmost
         {
@@ -34,6 +56,11 @@ namespace Evernight_Sticker.ViewModels
             }
         }
 
+        /// <summary>
+        /// Constructor for MainWindow_ViewModel. Initializes the NotifyIcon and sets up the context menu for the system tray icon.
+        /// Initiate Timer for frame animation
+        /// </summary>
+        /// <param name="mainWindow"></param>
         public MainWindow_ViewModel(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
@@ -42,13 +69,39 @@ namespace Evernight_Sticker.ViewModels
             _displayWindows = _app.DisplayWindows;
             _jsonParser = _app.JsonParser;
 
+            // Generate NotifyIcon and context menu
             GenerateNotifyIcon();
 
+            // Initiate Timer for frame animation
+            _frame = -1;
+            _frameInterval = 80;
+
+            _timer = new Timer();
+            _timer.Interval = _frameInterval;
+            _timer.Tick += NextFrame;
+            _timer.Start();
+        }
+
+        private void NextFrame(object sender, EventArgs e)
+        {
+            _frame++;
+            // the evernight png has only 10 frames, so reset to 0 when it reaches 10
+            if (_frame == 10)
+            {
+                _frame = 0;
+            }
+
+            foreach (DisplayWindow displayWindow in _displayWindows)
+            {
+                (displayWindow.DataContext as DisplayWindow_ViewModel).NextFrame(_frame);
+            }
         }
 
         internal void Window_Closing()
         {
-            throw new NotImplementedException();
+            _noti.Visible = false;
+            _noti.Icon = null;
+            _noti.Dispose();
         }
 
         private void GenerateNotifyIcon()
@@ -96,7 +149,7 @@ namespace Evernight_Sticker.ViewModels
 
                 DisplaySettings settings = new DisplaySettings
                 {
-                    FilePath = @"Resources\Evernight.gif",
+                    FilePath = @"Resources\Evernight.png",
                     Name = "Evernight",
                     Top = 100,
                     Left = 100,
@@ -123,7 +176,6 @@ namespace Evernight_Sticker.ViewModels
                 }
                 _displayWindows.Clear();
 
-                _noti.Dispose();
                 _mainWindow.Close();
                 _app.Shutdown();
             };
@@ -136,7 +188,7 @@ namespace Evernight_Sticker.ViewModels
             };
 
             // dynamically add display windows to menu
-            Directory.GetFiles(@"Resources\", "*.gif").ToList().ForEach(file =>
+            Directory.GetFiles(@"Resources\", "*.png").ToList().ForEach(file =>
             {
                 MenuItem item = new MenuItem
                 {
