@@ -142,7 +142,7 @@ namespace Evernight_Sticker.ViewModels
             ContextMenu menu = new ContextMenu();
             _noti = new NotifyIcon
             {
-                Icon = new Icon(@"Resources\icon.ico", new System.Drawing.Size(10, 10)),
+                Icon = new Icon(@"Resources\evernight.ico", new System.Drawing.Size(10, 10)),
                 Visible = true,
                 Text = "Evernight",
                 ContextMenu = menu
