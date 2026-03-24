@@ -54,7 +54,7 @@ namespace Evernight_Sticker.Views
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            _app.SaveCurrentState();
+            
         }
 
         private void Window_StateChanged(object sender, EventArgs e)

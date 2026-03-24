@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using Application = System.Windows.Application;
 using Timer = System.Windows.Forms.Timer;
@@ -80,6 +81,35 @@ namespace Evernight_Sticker.ViewModels
             _timer.Interval = _frameInterval;
             _timer.Tick += NextFrame;
             _timer.Start();
+
+            // load display windows from settings
+            if (_jsonParser.Settings.DisplaySettings.Count == 0)
+            {
+                _displayWindows.Add(new DisplayWindow(new DisplaySettings { FilePath = @"Resources\Evernight.png", Name = "Evernight", Top = 100, Left = 100, Width = 300, Height = 300 }));
+                _displayWindows.First().Show();
+            }
+            else
+            {
+                // if the settings' left and top position are out of screen, reset them to 100, 100
+                foreach (DisplaySettings displaySettings in _jsonParser.Settings.DisplaySettings)
+                {
+                    if (SystemParameters.VirtualScreenWidth < displaySettings.Left - 300 || displaySettings.Left < 0)
+                    {
+                        displaySettings.Left = 100;
+                    }
+
+                    if (SystemParameters.VirtualScreenHeight < displaySettings.Top - 300 || displaySettings.Top < 0)
+                    {
+                        displaySettings.Top = 100;
+                    }
+
+                    DisplayWindow displayWindow = new DisplayWindow(displaySettings);
+                    _displayWindows.Add(displayWindow);
+                    displayWindow.Show();
+                }
+            }
+
+            _app.SaveCurrentState();
         }
 
         private void NextFrame(object sender, EventArgs e)
@@ -112,7 +142,7 @@ namespace Evernight_Sticker.ViewModels
             ContextMenu menu = new ContextMenu();
             _noti = new NotifyIcon
             {
-                Icon = new Icon(@"Resources\icon.ico", new Size(10, 10)),
+                Icon = new Icon(@"Resources\icon.ico", new System.Drawing.Size(10, 10)),
                 Visible = true,
                 Text = "Evernight",
                 ContextMenu = menu

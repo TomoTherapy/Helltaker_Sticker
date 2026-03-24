@@ -94,6 +94,8 @@ namespace Evernight_Sticker.ViewModels
             }
         }
 
+        public DisplaySettings DisplaySettings { get => _displaySettings; }
+
         public MainWindow_ViewModel MainWindow_ViewModel { get => Application.Current.MainWindow.DataContext as MainWindow_ViewModel; }
 
         public int FrameInterval

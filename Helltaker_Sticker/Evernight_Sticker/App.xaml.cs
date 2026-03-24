@@ -1,4 +1,5 @@
 ﻿using Evernight_Sticker.Components;
+using Evernight_Sticker.ViewModels;
 using Evernight_Sticker.Views;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,8 @@ namespace Evernight_Sticker
 
             foreach (DisplayWindow displayWindow in DisplayWindows)
             {
-                JsonParser.Settings.DisplaySettings.Add(new DisplaySettings() { Left = displayWindow.Left, Top = displayWindow.Top, Width = displayWindow.Width, Height = displayWindow.Height });
+                DisplaySettings settings = (displayWindow.DataContext as DisplayWindow_ViewModel).DisplaySettings.Copy();
+                JsonParser.Settings.DisplaySettings.Add(settings);
             }
             JsonParser.SaveSettings();
         }
